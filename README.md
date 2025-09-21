@@ -61,5 +61,33 @@ Full Fledge Auth
 * Public-facing high traffic apps (security risk zyada hota hai).
 
 
-abc
+🔑 Multi-Factor Authentication (MFA)
+
+Sirf password se login risky hai → MFA use karne se extra layer add hoti hai.
+
+🔧 Common MFA Methods
+1. SMS OTP : User ke phone pe OTP bhejte hain.
+2. Email OTP / Magic Link : OTP ya login link user email pe receive karta hai.
+3. Authenticator Apps (TOTP) : Apps like Google Authenticator, Authy
+4. Hardware Tokens : YubiKey, FIDO2 keys
+5. Biometrics : Fingerprint, FaceID
+
+✅ Pros of MFA
+* Password leak hone par bhi attacker access nahi kar sakta
+* Brute force / phishing attacks se strong protection
+* Enterprise apps me mandatory
+
+🔒 Best Practices
+
+* Mandatory 2FA only for sensitive actions (login from new device, password change)
+* Backup codes provide karna
+* Authenticator app prefer karo SMS ke upar
+* MFA recovery option (email/phone) secure rakho
+
+⚡ Real-life Examples of MFA
+
+* Google Account → Password + Authenticator/Phone OTP
+* Paytm/PhonePe → Password/MPIN + OTP
+* GitHub → Password + TOTP
+* Enterprise apps (Okta, Azure AD) → SSO + MFA
 
