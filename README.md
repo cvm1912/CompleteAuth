@@ -91,3 +91,25 @@ Sirf password se login risky hai → MFA use karne se extra layer add hoti hai.
 * GitHub → Password + TOTP
 * Enterprise apps (Okta, Azure AD) → SSO + MFA
 
+🔑 One-Time Password (OTP) Authentication
+
+📌 OTP Flow
+1. User Request → Login page me user phone/email enter karta hai.
+2. Server Generate OTP → Random numeric/alphanumeric code generate hota hai.
+3. Send OTP → OTP user ke SMS/Email/Authenticator app pe bheja jata hai.
+4. User Enter OTP → User OTP form me dalta hai.
+
+🔧 OTP Methods
+1. SMS OTP
+2. Email OTP
+3. TOTP (Time-based OTP)
+4. Push Notification OTP
+
+⚡ Real-life Examples of OTP
+
+* Banking apps → transaction authentication
+* WhatsApp/Telegram → phone number login
+* Google → passwordless login
+* ecommerce apps → phone OTP login
+
+
