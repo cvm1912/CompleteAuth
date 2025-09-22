@@ -93,3 +93,18 @@ Install Dependencies
 2. subject → email ka subject line
 3. text → plain text message
 4. html (optional) → HTML formatted message
+
+
+
+# Register Flow 
+
+1. user will register 
+2. body validate 
+3. check email exist 
+4. hash password
+5. user create 
+6. email verification 
+7. generate otp
+8. hash otp
+9. store into db
+10. send otp to user
