@@ -1,44 +1,47 @@
-1️⃣ Database Tables
-We need two main tables:
-1. User : id (UUID, PK), email (unique), password, isVerified, mfaEnabled
-2. OTP : id (UUID, PK), code (hashed), userId (FK → User.id), createdAt, expiresAt
+# UTILS
 
-2️⃣ User Login Flow with MFA
+1. bcrypt: it is used for secure hashing 
 
-step 1 : 
-Action : User enters email & password
-System Behavior : Validate credentials
-
-step 2: 
-Action : Check if mfaEnabled is true
-System Behavior : If yes → generate OTP and save in OTP table
-
-step 3: 
-Action : Send OTP via Email/SMS
-System Behavior : OTP expires in 5 minutes
-
-step : 4 
-Action : User enters OTP
-System Behavior : Validate OTP against DB record
-
-step : 5
-Action: If OTP valid
-System Behavior : Login success → issue JWT or session
-
-step : 6 
-Action : If OTP invalid/expired
-System Behaviour : Reject login → user retries
-
-3️⃣ OTP Table Example
-id (UUID)	   code (hashed)	userId (UUID)	createdAt	        expiresAt
-a1b2c3d4-e5f6	$2b$10$N...	    user-123	    2025-09-22 00:00	2025-09-22 00:05
-f6e5d4c3-b2a1	$2b$10$Q...	    user-123	    2025-09-22 01:00	2025-09-22 01:05
-
-4️⃣ Key Notes
-* OTP Expiry: 5 minutes or configurable.
-* OTP Hashing: Never store raw OTPs; hash them in DB.
-* Security: Limit OTP attempts (e.g., max 3 tries).
-* Cleanup: Delete used or expired OTPs.
+To install bcrypt, run the following commands in your project directory:
+* npm install bcryptjs 
+* npm install @types/bcryptjs --save-dev
 
 
 
+# Code Explanation 
+export const hashValue = async (value: string): Promise<string> => { }
+
+1. export: 
+* Iska matlab hai ye function bahar ke files me bhi use ho sakta hai.
+* Agar tum is file ko import karoge kahin aur, to ye function available rahega.
+* example : import { hashValue } from "./utils";
+
+2. const hashValue = ...
+* Ye ek constant function in the form of arrow function.
+
+3. async
+* Ye function asynchronous hai → Matlab iske andar tum await use kar sakte ho.
+* Ye hamesha ek Promise return karega.
+
+4. (value: string)
+* Ye function ek parameter leta hai jiska naam value hai aur uska type string hai.
+* Matlab tum is function ko call karte waqt ek string pass karoge.
+
+5. : Promise<string>
+* Ye function ek Promise return karega jo eventually ek string resolve karega.
+
+6. body 
+* Salt generate karna
+* hash value using the salt 
+
+Important bcrypt Functions 🔑
+
+1. bcrypt.genSalt(rounds) : 
+* Ek random salt banata hai.
+* rounds = kitna computation chahiye (zyada rounds = zyada secure, lekin thoda slow).
+
+2. bcrypt.hash(value, salt)
+* String (password/OTP) ko hash karta hai salt ke sath
+
+3. bcrypt.compare(value, hashedValue)
+* User ka diya hua password/OTP aur database ka hash compare karta hai.
