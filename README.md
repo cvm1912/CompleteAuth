@@ -76,3 +76,20 @@ Important jsonwebtoken Functions 🔑
 * Matlab wo sirf token ka andar ka payload (header + body) return karega, par authenticity check nahi karega.
 * Isliye security ke liye verify() use karo, decode() sirf debug / info ke liye use hota hai.
 
+# NODEMAILER
+
+Install Dependencies
+* npm install nodemailer
+* npm install --save-dev @types/nodemailer
+
+# Code Explanation
+* transporter ek connection object hai jo Nodemailer ko batata hai ki email kaise bhejna hai.
+* service: "gmail" → Gmail ke SMTP server use ho rahe hain.
+* auth → authentication ke liye user (tumhara email) aur password (App Password from Gmail) use ho raha hai.
+* auth → authentication ke liye user (tumhara email) aur password (App Password from Gmail) use ho raha hai.
+
+* sendMail ek async function hai jo 4 parameters leta hai:
+1. to → email kisko bhejna hai
+2. subject → email ka subject line
+3. text → plain text message
+4. html (optional) → HTML formatted message
