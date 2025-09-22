@@ -97,7 +97,6 @@ Install Dependencies
 
 
 # Register Flow 
-
 1. user will register 
 2. body validate 
 3. check email exist 
@@ -109,7 +108,7 @@ Install Dependencies
 9. store into db
 10. send otp to user
 
-OTP Verification Flow Summary
+# OTP Verification Flow Summary
 * User submits OTP → Frontend se email + otp request aati hai.
 * Validate request body → Ensure email aur OTP exist aur valid format me hain.
 * Check user exist → Database me user check karo given email ke saath.
@@ -118,4 +117,14 @@ OTP Verification Flow Summary
 * Compare OTP → Submitted OTP ko hashed OTP ke saath compare karo using bcrypt.
 * Update user verification status → Agar OTP match ho gaya → isVerified = true set karo.
 * Delete OTP (optional) → Security ke liye used OTP ko DB se delete kar do.
-* Respond to frontend → Success ya failure message bhejo.*
+* Respond to frontend → Success ya failure message bhejo.
+
+# Login Flow Summary
+
+1. User submits email and password.
+2. Validate request body.
+3. Check if user exists in DB.
+4. Check if user is verified (isVerified = true).
+5. Compare submitted password with hashed password in DB.
+6. Generate JWT token or session.
+7. Send success response with token or error message.

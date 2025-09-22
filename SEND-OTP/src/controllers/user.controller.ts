@@ -3,6 +3,7 @@ import { prisma } from "../config/prisma";
 import { hashValue, compareValue } from "../utils/bcrypt";
 import { sendMail } from "../utils/mailer";
 import { generateOTP } from "../utils/otp";
+import { generateToken } from "../utils/jwt";
 
 // User Registration
 export const registerUser = async (req: Request, res: Response) => {
@@ -60,7 +61,6 @@ export const registerUser = async (req: Request, res: Response) => {
 
 export const verifyOTP = async (req: Request, res: Response) => {
   try {
-
     //  user submit email and otp
     const body = req.body || {};
     const { email, otp } = body;
@@ -81,7 +81,7 @@ export const verifyOTP = async (req: Request, res: Response) => {
       where: { userId: user.id },
       orderBy: { createdAt: "desc" },
     });
-    
+
     if (!latestOTP) {
       return res.status(400).json({ message: "OTP not found" });
     }
@@ -101,13 +101,44 @@ export const verifyOTP = async (req: Request, res: Response) => {
     await prisma.user.update({
       where: { id: user.id },
       data: { isVerified: true, MFAEnabled: true },
-
     });
     await prisma.oTP.delete({ where: { id: latestOTP.id } });
 
     return res
       .status(200)
       .json({ message: "OTP verified. User is now verified." });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+export const loginUser = async (req: Request, res: Response) => {
+  try {
+    const body = req.body || {};
+    const { email, password } = body;
+    if (!email || !password) {
+      return res.status(400).json({ message: "email and password are required" });
+    }
+
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const isPasswordValid = await compareValue(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    if (!user.isVerified) {
+      return res.status(400).json({ message: "User not verified" });
+    }
+
+
+
+    // generate JWT or session here for authenticated user
+    const token = generateToken({ userId: user.id });
+    return res.status(200).json({ message: "Login successful", token });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error", error });
   }
