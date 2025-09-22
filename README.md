@@ -45,3 +45,34 @@ Important bcrypt Functions 🔑
 
 3. bcrypt.compare(value, hashedValue)
 * User ka diya hua password/OTP aur database ka hash compare karta hai.
+
+
+# JSONWEBTOKEN
+use to create a token 
+
+To install jsonwebtoken, run the following commands in your project directory:
+1. npm install jsonwebtoken
+2. npm install --save-dev @types/jsonwebtoken
+
+# Code Explanation
+
+It have 2 things 
+* JWT_SECRET
+* EXPIRES_IN
+
+
+Important jsonwebtoken Functions 🔑
+1. sign
+* JWT create karta hai (matlab token generate).
+* Tum payload (data) + secret key + options dete ho, aur yeh tumhe ek signed token return karta hai.
+
+2. verify
+* Token ko check karta hai ki wo valid hai ya nahi aur expire hua ya nahi.
+* Agar token sahi hai → decoded payload return karega.
+
+
+3. decode 
+* Token ko decode karta hai bina verify kiye.
+* Matlab wo sirf token ka andar ka payload (header + body) return karega, par authenticity check nahi karega.
+* Isliye security ke liye verify() use karo, decode() sirf debug / info ke liye use hota hai.
+
