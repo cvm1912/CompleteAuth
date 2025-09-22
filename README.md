@@ -108,3 +108,14 @@ Install Dependencies
 8. hash otp
 9. store into db
 10. send otp to user
+
+OTP Verification Flow Summary
+* User submits OTP → Frontend se email + otp request aati hai.
+* Validate request body → Ensure email aur OTP exist aur valid format me hain.
+* Check user exist → Database me user check karo given email ke saath.
+* Fetch latest OTP → User ke liye DB me stored OTP record nikal lo.
+* Check OTP expiry → Agar OTP expire ho gaya → reject request.
+* Compare OTP → Submitted OTP ko hashed OTP ke saath compare karo using bcrypt.
+* Update user verification status → Agar OTP match ho gaya → isVerified = true set karo.
+* Delete OTP (optional) → Security ke liye used OTP ko DB se delete kar do.
+* Respond to frontend → Success ya failure message bhejo.*
