@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String  @id @default(uuid())
+  email      String  @unique
+  password   String
+  isVerified Boolean @default(false)
+  MFAEnabled Boolean @default(false)
+  otps       OTP[]
+}
+
+model OTP {
+  id        String   @id @default(uuid())
+  code      String
+  userId    String
+  createdAt DateTime @default(now())
+  expireAt  DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
