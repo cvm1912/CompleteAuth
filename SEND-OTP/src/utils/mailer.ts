@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendMail = async (
-to: string,
+  to: string,
   subject: string,
   text: string,
   html?: string
@@ -22,3 +22,5 @@ to: string,
     html,
   });
 };
+
+
